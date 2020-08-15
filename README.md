@@ -66,3 +66,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### ABOUT
+This is an app for learning microservice architecture.
+
+### Author
+NGUYEN NGOC HOANG  - 0846466125

@@ -7,16 +7,15 @@ import { TOO_SHORT_FIELD, TOO_LONG_FIELD, REQUIRED_FIELD, SIGN_UP_FORM_INIT, GEN
 import { Form, Button } from "react-bootstrap"
 import Select from 'react-select'
 import { Link } from 'react-router-dom';
-
 class CSignup extends Component {
 
 
   validationSchema() {
     return (
       Yup.object().shape({
-        username: Yup.string()
-          .min(5, TOO_SHORT_FIELD("Username"))
-          .max(20, TOO_LONG_FIELD("Username"))
+        email: Yup.string()
+          .min(5, TOO_SHORT_FIELD("email"))
+          .max(50, TOO_LONG_FIELD("email"))
           .required(REQUIRED_FIELD),
         password: Yup.string()
           .min(6, TOO_SHORT_FIELD("Password"))
@@ -44,7 +43,7 @@ class CSignup extends Component {
             isSubmitting, handleChange,
             handleSubmit, setFieldValue
           } = props;
-    let isValidUsername = errors.username && touched.username
+    let isValidEmail = errors.email && touched.email
     let isValidPassword = errors.password && touched.password
     let isPasswordMatch = errors.password_confirmation && touched.password_confirmation
     let isValidFirstName = errors.first_name && touched.first_name
@@ -53,10 +52,10 @@ class CSignup extends Component {
     return (
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter username" value={values.username} onChange={handleChange} name="username"
-                        className={ isValidUsername ? "text-input error": "text-input"}/>
-          {isValidUsername ? <span className="error-text">{errors.username}</span> : null}
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="text" placeholder="Enter email" value={values.email} onChange={handleChange} name="email"
+                        className={ isValidEmail ? "text-input error": "text-input"}/>
+          {isValidEmail ? <span className="error-text">{errors.email}</span> : null}
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>First name</Form.Label>
@@ -101,7 +100,7 @@ class CSignup extends Component {
   }
 
   submitForm(values, setSubmitting) {
-    let users_authentication = {username: values.username, password: values.password}
+    let users_authentication = {email: values.email, password: values.password}
     setSubmitting(false)
     console.log(JSON.stringify(users_authentication))
     window.axios.post(USER_REGISTRATION_PATH, {users_authentication: users_authentication}).then(response => {

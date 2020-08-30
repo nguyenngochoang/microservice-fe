@@ -1,6 +1,6 @@
 const dev = {
   apiGateway: {
-    URL: "http://localhost:3000/"
+    URL: "http://localhost:4000/"
   }
 }
 

@@ -23,5 +23,5 @@ export const GENDER_VALUES = [  {  value: "male", label: "Male" },
                               ]
 
 export const USER_REGISTRATION_PATH = "/user_authentications"
-
+export const USER_LOGIN_PATH = "/user_authentications/sign_in"
 // ===================================================================

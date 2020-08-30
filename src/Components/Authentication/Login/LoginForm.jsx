@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import './LoginForm.scss'
-import { TOO_SHORT_FIELD, TOO_LONG_FIELD, REQUIRED_FIELD, LOGIN_FORM_INIT, SIGNUP_LOGIN_PATH } from "constants.js"
+import { TOO_SHORT_FIELD, TOO_LONG_FIELD, REQUIRED_FIELD, LOGIN_FORM_INIT, SIGNUP_LOGIN_PATH, USER_LOGIN_PATH } from "constants.js"
 import { Form, Button } from "react-bootstrap"
 import { Link } from 'react-router-dom';
 class CLoginForm extends Component {
@@ -12,9 +12,9 @@ class CLoginForm extends Component {
   validationSchema() {
     return (
       Yup.object().shape({
-        username: Yup.string()
-          .min(5, TOO_SHORT_FIELD("Username"))
-          .max(10, TOO_LONG_FIELD("Username"))
+        email: Yup.string()
+          .min(5, TOO_SHORT_FIELD("Email"))
+          .max(50, TOO_LONG_FIELD("Email"))
           .required(REQUIRED_FIELD),
         password: Yup.string()
           .min(6, TOO_SHORT_FIELD("Password"))
@@ -29,15 +29,15 @@ class CLoginForm extends Component {
             isSubmitting, handleChange,
             handleSubmit
           } = props;
-    let isValidUsername = errors.username && touched.username
+    let isValidEmail = errors.email && touched.email
     let isValidPassword = errors.password && touched.password
     return (
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter username" value={values.username} onChange={handleChange} name="username"
-                        className={ isValidUsername ? "text-input error": "text-input"}/>
-          {isValidUsername ? <span className="error-text">{errors.username}</span> : null}
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="text" placeholder="Enter email" value={values.email} onChange={handleChange} name="email"
+                        className={ isValidEmail ? "text-input error": "text-input"}/>
+          {isValidEmail ? <span className="error-text">{errors.email}</span> : null}
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
@@ -63,8 +63,12 @@ class CLoginForm extends Component {
   }
 
   submitForm(values, setSubmitting) {
-    console.log(JSON.stringify(values))
+    let users_authentication = {email: values.email, password: values.password}
     setSubmitting(false)
+    console.log(JSON.stringify(users_authentication))
+    window.axios.post(USER_LOGIN_PATH, {users_authentication: users_authentication}).then(response => {
+      console.log("login successfully")
+    })
   }
 
   render() {

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import './LoginForm.scss'
-import { TOO_SHORT_FIELD, TOO_LONG_FIELD, REQUIRED_FIELD, LOGIN_FORM_INIT, SIGNUP_LOGIN_PATH, USER_LOGIN_PATH } from "constants.js"
+import { TOO_SHORT_FIELD, TOO_LONG_FIELD, REQUIRED_FIELD, LOGIN_FORM_INIT, SIGNUP_LOGIN_PATH, USER_LOGIN_PATH, HOME_PAGE, USER_PATH } from "constants.js"
+import { setCurrentUser } from "actions/users"
 import { Form, Button } from "react-bootstrap"
 import { Link } from 'react-router-dom';
 class CLoginForm extends Component {
@@ -15,6 +16,7 @@ class CLoginForm extends Component {
         email: Yup.string()
           .min(5, TOO_SHORT_FIELD("Email"))
           .max(50, TOO_LONG_FIELD("Email"))
+          .email()
           .required(REQUIRED_FIELD),
         password: Yup.string()
           .min(6, TOO_SHORT_FIELD("Password"))
@@ -65,9 +67,13 @@ class CLoginForm extends Component {
   submitForm(values, setSubmitting) {
     let users_authentication = {email: values.email, password: values.password}
     setSubmitting(false)
-    console.log(JSON.stringify(users_authentication))
-    window.axios.post(USER_LOGIN_PATH, {users_authentication: users_authentication}).then(response => {
-      console.log("login successfully")
+
+    window.authAxios.post(USER_LOGIN_PATH, {users_authentication: users_authentication}).then(response => {
+      const userToken = response.data.token
+      localStorage.setItem("auth_token", userToken)
+      window.location = HOME_PAGE
+    }).catch(error => {
+      console.log(error.response.data.exception)
     })
   }
 

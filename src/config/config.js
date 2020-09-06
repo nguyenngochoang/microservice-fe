@@ -1,6 +1,7 @@
 const dev = {
   apiGateway: {
-    URL: "http://localhost:4000/"
+    AUTH_URL: "http://localhost:4000/",
+    USER_SERVICE_URL: "http://localhost:4001/"
   }
 }
 

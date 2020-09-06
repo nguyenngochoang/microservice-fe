@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import './Signup.scss'
-import { TOO_SHORT_FIELD, TOO_LONG_FIELD, REQUIRED_FIELD, SIGN_UP_FORM_INIT, GENDER_VALUES, USER_REGISTRATION_PATH } from "constants.js"
+import { TOO_SHORT_FIELD, TOO_LONG_FIELD, REQUIRED_FIELD, SIGN_UP_FORM_INIT, GENDER_VALUES, USER_REGISTRATION_PATH, USERS_PATH } from "constants.js"
 import { Form, Button } from "react-bootstrap"
 import Select from 'react-select'
 import { Link } from 'react-router-dom';
@@ -101,10 +101,24 @@ class CSignup extends Component {
 
   submitForm(values, setSubmitting) {
     let users_authentication = {email: values.email, password: values.password}
+    let user = {email: values.email, first_name: values.first_name, last_name: values.last_name, gender: values.gender}
     setSubmitting(false)
-    console.log(JSON.stringify(users_authentication))
-    window.axios.post(USER_REGISTRATION_PATH, {users_authentication: users_authentication}).then(response => {
-      console.log(JSON.stringify(response.data.user))
+
+    window.authAxios.post(USER_REGISTRATION_PATH, {users_authentication: users_authentication}).then(response => {
+      this.createUserData(user, setSubmitting)
+    }).catch(error => {
+      console.log(error)
+      setSubmitting(false)
+    })
+  }
+
+  createUserData(user, setSubmitting) {
+    window.userServiceAxios.post(USERS_PATH, {user: user}).then(response => {
+      console.log(response.data.token)
+      setSubmitting(false)
+    }).catch(error => {
+      setSubmitting(false)
+      console.log(error)
     })
   }
 

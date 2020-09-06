@@ -9,9 +9,10 @@ export const SIGN_UP_FORM_INIT = {username: "", password:"", password_confirmati
 // ===================================================================
 
 // ==================== Routes =======================================
-
+export const HOME_PAGE = "/"
 export const SIGNUP_LOGIN_PATH = ["/login", "/signup"]
-
+export const USERS_PATH = "/users"
+export const USER_PATH = "/users/info"
 // ===================================================================
 
 

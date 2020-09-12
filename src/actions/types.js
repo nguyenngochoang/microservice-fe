@@ -1,3 +1,7 @@
 export const USER_ACTIONS = {
   SET_CURRENT_USER: 'SET_CURRENT_USER'
 }
+
+export const PRODUCT_ACTIONS = {
+  SET_PRODUCTS: 'SET_PRODUCTS'
+}

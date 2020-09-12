@@ -13,6 +13,7 @@ export const HOME_PAGE = "/"
 export const SIGNUP_LOGIN_PATH = ["/login", "/signup"]
 export const USERS_PATH = "/users"
 export const USER_PATH = "/users/info"
+export const PRODUCTS_PATH = "/products"
 // ===================================================================
 
 

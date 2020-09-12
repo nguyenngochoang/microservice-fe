@@ -6,7 +6,12 @@ import { SIGNUP_LOGIN_PATH } from 'constants.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Layout.scss'
 import './common.scss'
+import _ from "lodash"
 class CLayout extends Component {
+
+  renderLoginButton() {
+    return _.isEmpty(this.props.currentUser) ? <Nav.Link href="/login">Login</Nav.Link> : <Nav.Link href="#">Logout</Nav.Link>
+  }
 
   renderNavBar() {
     if(SIGNUP_LOGIN_PATH.includes(this.props.location.pathname))
@@ -17,13 +22,13 @@ class CLayout extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Products</Nav.Link>
+            <Nav.Link href="/products">Products</Nav.Link>
             <Nav.Link href="#link">Cart</Nav.Link>
             <NavDropdown title="Sort" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">By name</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">By date</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/login">Login</Nav.Link>
+            {this.renderLoginButton()}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -43,7 +48,7 @@ class CLayout extends Component {
 const RLayout = withRouter(CLayout)
 
 const mapStoreToProps = store => ({
-
+  currentUser: store.currentUser
 })
 
 const mapDispatchToProps = {

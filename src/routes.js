@@ -11,8 +11,17 @@ import Homepage from './Components/Homepage/Homepage'
 import LoginForm from './Components/Authentication/Login/LoginForm'
 import Signup from './Components/Authentication/Signup/Signup'
 import Products from './Components/Products/Products'
+import ChargeProduct from './Components/ChargeProduct/ChargeProduct'
 
 export const Routes = () => {
+  const PrivateRoute = ({ component: Component, ...rest }) => {
+    const userToken = window.localStorage.getItem("auth_token")
+    if (userToken) {
+      return <Route {...rest} render={(props) => (<Component {...props} />)} />
+    }
+    return <Route {...rest} render={() =>(<Redirect to='/login' />)} />
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -22,6 +31,7 @@ export const Routes = () => {
           <Route exact path="/login" component={LoginForm}/>
           <Route exact path="/signup" component={Signup}/>
           <Route exact path="/products" component={Products} />
+          <PrivateRoute exact path="/product_payment/:id" component={ChargeProduct} />
         </Layout>
       </Switch>
     </BrowserRouter>

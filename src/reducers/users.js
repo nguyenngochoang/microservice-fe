@@ -8,3 +8,11 @@ export const currentUser = (state = {}, action) => {
       return state
   }
 }
+export const loggedInStatus = (state = {}, action) => {
+  switch (action.type){
+    case USER_ACTIONS.SET_LOGGED_IN_STATUS:
+      return action.payload.loggedInStatus
+    default:
+      return state
+  }
+}

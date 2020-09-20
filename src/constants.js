@@ -14,6 +14,9 @@ export const SIGNUP_LOGIN_PATH = ["/login", "/signup"]
 export const USERS_PATH = "/users"
 export const USER_PATH = "/users/info"
 export const PRODUCTS_PATH = "/products"
+export const PRODUCT_PATH = (id) => `/products/${id}`
+export const GET_CLIENT_TOKEN_PATH = "/transactions/client_token"
+export const CHECKOUT_PATH = "/transactions/checkout"
 // ===================================================================
 
 

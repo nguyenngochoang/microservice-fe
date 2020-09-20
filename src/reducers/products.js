@@ -8,3 +8,11 @@ export const products = (state = {}, action) => {
       return state
   }
 }
+export const product = (state = {}, action) => {
+  switch (action.type){
+    case PRODUCT_ACTIONS.SET_PRODUCT:
+      return action.payload.product
+    default:
+      return state
+  }
+}

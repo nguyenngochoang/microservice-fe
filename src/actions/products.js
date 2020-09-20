@@ -6,3 +6,10 @@ export const setProducts = (products) => ({
     products: products
   }
 })
+
+export const setProduct = (product) => ({
+  type: PRODUCT_ACTIONS.SET_PRODUCT,
+  payload: {
+    product: product
+  }
+})

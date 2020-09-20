@@ -4,6 +4,7 @@ import { PRODUCTS_PATH } from "constants.js"
 import { Container, Row, Col, Card, Button } from "react-bootstrap"
 import { setProducts } from "actions/products"
 import _ from "lodash"
+import { Link } from 'react-router-dom';
 class CProducts extends Component {
 
   componentDidMount() {
@@ -28,7 +29,9 @@ class CProducts extends Component {
           <Card.Body>
             <Card.Title> {product.name} </Card.Title>
             <Card.Text> {product.description} </Card.Text>
-            <Button variant="primary">Buy</Button>
+            <Link to={`/product_payment/${product.id}`}>
+              <Button variant="primary">Buy</Button>
+            </Link>
           </Card.Body>
         </Card>
       </Col>

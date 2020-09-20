@@ -2,12 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
-import { SIGNUP_LOGIN_PATH } from 'constants.js'
+import { SIGNUP_LOGIN_PATH, USER_PATH } from 'constants.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Layout.scss'
 import './common.scss'
 import _ from "lodash"
+import { setCurrentUser } from "actions/users"
+
 class CLayout extends Component {
+
+  componentDidMount() {
+    const user_token = localStorage.getItem("auth_token")
+
+    if(user_token)
+      this.getLoggedUserInfo(user_token)
+  }
+
+  getLoggedUserInfo(user_token) {
+    window.userServiceAxios.get(USER_PATH, {params: {user_token: user_token}}).then(response => {
+      this.props.setCurrentUser(response.data.user)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
 
   renderLoginButton() {
     return _.isEmpty(this.props.currentUser) ? <Nav.Link href="/login">Login</Nav.Link> : <Nav.Link href="#">Logout</Nav.Link>
@@ -52,6 +70,7 @@ const mapStoreToProps = store => ({
 })
 
 const mapDispatchToProps = {
+  setCurrentUser
 }
 
 export const Layout = connect(
